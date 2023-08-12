@@ -1,6 +1,6 @@
-namespace sentinel.ai.domain;
+namespace sentinel.ai.domain.interfaces;
 
 public interface IRepository
 {
-    
+
 }
