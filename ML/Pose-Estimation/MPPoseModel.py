@@ -1,3 +1,5 @@
+# import asyncio
+# import websockets
 import cv2
 import mediapipe as mp
 import numpy as np
@@ -39,7 +41,8 @@ for landmark in excluded_landmarks:
     custom_connections = [connection_tuple for connection_tuple in custom_connections 
                             if landmark.value not in connection_tuple]
 
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
+
 with mp_hol.Holistic(min_detection_confidence=0.5, min_tracking_confidence=0.5) as holistic:
     while cap.isOpened():
         ret, frame = cap.read()
