@@ -1,0 +1,22 @@
+<div class="history-table">
+    <input class="form-control" type="text" placeholder="Search" [(ngModel)]="searchText">
+    <table class="table table-hover table-striped">
+        <thead>
+            <tr>
+                <th>Identification No</th>
+                <th>Image of Target</th>
+                <th>Date and Time Assessed</th>
+                <th>Verdict</th>
+                <th>Confidence</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let e of data | search: searchText">
+                <td>{{e.id}}</td>
+                <td>{{e.image}}</td>
+                <td>{{e.datetime}}</td>
+                <td>{{e.verdict}}</td>
+                <td>{{e.confidence}}</td>
+        </tbody>
+    </table>    
+</div>

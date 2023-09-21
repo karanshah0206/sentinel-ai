@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-raw-footage',
@@ -6,5 +7,4 @@ import { Component } from '@angular/core';
   styleUrls: ['./raw-footage.component.css']
 })
 export class RawFootageComponent {
-
 }
