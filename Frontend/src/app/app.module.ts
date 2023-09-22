@@ -3,6 +3,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule } from '@angular/forms';
 
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+
 import { AppComponent } from './app.component';
 import { RawFootageComponent } from './raw-footage/raw-footage.component';
 import { RouterModule } from '@angular/router';
@@ -33,7 +35,8 @@ import { LogoComponent } from './logo/logo.component';
     AppRoutingModule,
     RouterModule.forRoot([
     ]),
-    FormsModule
+    FormsModule,
+    NgxDatatableModule
   ],
   providers: [],
   bootstrap: [AppComponent]

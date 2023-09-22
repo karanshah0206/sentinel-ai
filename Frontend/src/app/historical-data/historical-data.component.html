@@ -1,23 +1,44 @@
 <app-logo></app-logo>
 <div class="history-table">
     <input class="form-control" type="text" placeholder="Search" [(ngModel)]="searchText">
-    <table class="table table-hover table-striped">
-        <thead>
-            <tr>
-                <th>Identification No</th>
-                <th>Image of Target</th>
-                <th>Date and Time Assessed</th>
-                <th>Verdict</th>
-                <th>Confidence</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let e of data | search: searchText">
-                <td>{{e.id}}</td>
-                <td>{{e.image}}</td>
-                <td>{{e.datetime}}</td>
-                <td>{{e.verdict}}</td>
-                <td>{{e.confidence}}</td>
-        </tbody>
-    </table>    
+    <ngx-datatable 
+        class="material" 
+        [rows]="rows" 
+        [columnMode]="'force'" 
+        [headerHeight]="50" 
+        [footerHeight]="50"
+        [rowHeight]="50" 
+        [scrollbarV]="false"
+        [limit]="10" >
+
+        <ngx-datatable-column name="ID" prop="id">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+                {{ row.id }}
+            </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="Image">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+                <img [src]="row.image" width="100" />
+            </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="Datetime" prop="datetime">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+                {{ row.datetime }}
+            </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="Verdict" prop="verdict">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+                {{ row.verdict }}
+            </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="Confidence" prop="confidence">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+                {{ row.confidence }}
+            </ng-template>
+        </ngx-datatable-column>
+    </ngx-datatable>
 </div>
