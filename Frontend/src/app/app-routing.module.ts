@@ -6,9 +6,11 @@ import { RouterStateSnapshot } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { RawFootageComponent } from './raw-footage/raw-footage.component';
 import { HistoricalDataComponent } from './historical-data/historical-data.component';
+import { CurrentTargetComponent } from './current-target/current-target.component';
 
 const routes : Routes = [
   {path: 'raw-footage', component: RawFootageComponent},
+  {path: 'current-target', component: CurrentTargetComponent},
   {path: 'historical-data', component: HistoricalDataComponent}
 ];
 
