@@ -1,9 +1,10 @@
+<button type="button" id="back" class="btn btn-dark" (click)="onClick();">Go Back</button>
 <app-logo></app-logo>
 <div class="history-table">
-    <input class="form-control" type="text" placeholder="Search" [(ngModel)]="searchText">
+    <input class="form-control" id="search" type="text" placeholder="Search" [(ngModel)]="searchText" (input)="filter()">
     <ngx-datatable 
         class="material" 
-        [rows]="rows" 
+        [rows]="tempRows" 
         [columnMode]="'force'" 
         [headerHeight]="50" 
         [footerHeight]="50"
