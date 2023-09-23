@@ -11,7 +11,6 @@ import { RouterModule } from '@angular/router';
 import { ProcessedFootageComponent } from './processed-footage/processed-footage.component';
 import { KeyFramesComponent } from './key-frames/key-frames.component';
 import { KeyActionsComponent } from './key-actions/key-actions.component';
-import { ViewHistoryComponent } from './view-history/view-history.component';
 import { HistoricalDataComponent } from './historical-data/historical-data.component';
 import { SearchPipe } from './search.pipe';
 import { CurrentTargetComponent } from './current-target/current-target.component';
@@ -24,7 +23,6 @@ import { LogoComponent } from './logo/logo.component';
     ProcessedFootageComponent,
     KeyFramesComponent,
     KeyActionsComponent,
-    ViewHistoryComponent,
     HistoricalDataComponent,
     SearchPipe,
     CurrentTargetComponent,

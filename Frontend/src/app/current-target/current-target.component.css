@@ -5,3 +5,9 @@
 .keyFramesActions {
     display: inline;
 }
+
+#viewHistory {
+    float: right;
+    margin-right: 1%;
+    margin-top: 1%;
+}

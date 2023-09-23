@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-current-target',
@@ -7,4 +8,9 @@ import { Component } from '@angular/core';
 })
 export class CurrentTargetComponent {
 
+  constructor(private router: Router) {}
+
+  onClick() {
+    this.router.navigate(['../historical-data']);
+  }
 }
