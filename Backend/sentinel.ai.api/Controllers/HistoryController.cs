@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using Sentinel.AI.Domain.Dto;
 
 namespace sentinel.ai.api.Controllers;
 
