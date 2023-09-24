@@ -1,6 +1,7 @@
 <button type="button" id="back" class="btn btn-dark" (click)="onClick();">Go Back</button>
 <app-logo></app-logo>
-<div class="history-table">
+<p *ngIf="loadingResult">Fetching data from server...</p>
+<div class="history-table" *ngIf="!loadingResult">
     <input class="form-control" id="search" type="text" placeholder="Search" [(ngModel)]="searchText" (input)="filter()">
     <ngx-datatable 
         class="material" 
@@ -24,9 +25,9 @@
             </ng-template>
         </ngx-datatable-column>
 
-        <ngx-datatable-column name="Datetime" prop="datetime">
+        <ngx-datatable-column name="Timestamp" prop="timestamp">
             <ng-template let-row="row" ngx-datatable-cell-template>
-                {{ row.datetime }}
+                {{ row.timestamp }}
             </ng-template>
         </ngx-datatable-column>
 

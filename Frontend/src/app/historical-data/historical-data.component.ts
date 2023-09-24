@@ -10,33 +10,29 @@ const months = [ "january", "february", "march", "april", "may", "june", "july",
   templateUrl: './historical-data.component.html',
   styleUrls: ['./historical-data.component.css']
 })
-
 export class HistoricalDataComponent {
+  ColumnMode = ColumnMode;
+  rows: { id: string; image: string; timestamp: Date; verdict: string; confidence: string; }[] = [];
+  tempRows: { id: string; image: string; timestamp: Date; verdict: string; confidence: string; }[] = [];
+  searchText = "";
+  loadingResult = true;
 
   constructor(private router: Router) {}
 
-  ColumnMode = ColumnMode;
-
-  rows = [
-    {
-      id: "1",
-      image: "url",
-      datetime: new Date("11/09/2023 02:29:46"),
-      verdict: "hostile",
-      confidence: "10%"
-    },
-    {
-      id: "2",
-      image: "url",
-      datetime: new Date("11/12/2023 02:29:45"),
-      verdict: "deceptive",
-      confidence: "30%"
-    }
-  ]
-
-  searchText="";
-
-  tempRows = this.rows
+  async ngOnInit() {
+    fetch("https://localhost:7251/History").then((fetchedResult) => {
+      fetchedResult.json().then((jsonResult) => {
+        this.rows = jsonResult;
+        this.rows.forEach(row => row.timestamp = new Date(row.timestamp));
+        this.filter();
+        this.loadingResult = false;
+      }).catch(_ => {
+        alert("Error occured while parsing data.");
+      });
+    }).catch((e) => {
+      alert("Could not fetch data from the server.");
+    });
+  }
 
   onClick() {
     this.router.navigate(['../current-target']);
@@ -54,10 +50,10 @@ export class HistoricalDataComponent {
       // filter data
       this.rows.forEach(row => {
         if (row.id.includes(this.searchText)
-          || row.datetime.toLocaleDateString().toLowerCase().includes(this.searchText)
-          || row.datetime.toLocaleTimeString().toLowerCase().includes(this.searchText)
-          || days[row.datetime.getDay()].includes(this.searchText)
-          || months[row.datetime.getMonth()].includes(this.searchText)
+          || row.timestamp.toLocaleDateString().toLowerCase().includes(this.searchText)
+          || row.timestamp.toLocaleTimeString().toLowerCase().includes(this.searchText)
+          || days[row.timestamp.getDay()].includes(this.searchText)
+          || months[row.timestamp.getMonth()].includes(this.searchText)
           || row.confidence.includes(this.searchText)
           || row.verdict.toLowerCase().includes(this.searchText)
         )
