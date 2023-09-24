@@ -1,4 +1,7 @@
 # DATABASE SETUP
 
-`CREATE DATABASE sentinel_ai;`
-`CREATE TABLE sentinel_ai.history (ID INT AUTO_INCREMENT PRIMARY KEY, Timestamp DATETIME, Verdict VARCHAR(255) NULL, Confidence DOUBLE NULL, Image LONGBLOB);`
+```
+CREATE DATABASE sentinel_ai;
+
+CREATE TABLE sentinel_ai.history (ID INT AUTO_INCREMENT PRIMARY KEY, Timestamp DATETIME, Verdict VARCHAR(255) NULL, Confidence DOUBLE NULL, Image LONGBLOB);
+```
