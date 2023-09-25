@@ -4,8 +4,8 @@ namespace sentinel.ai.domain.interfaces
 {
     public interface IHistoryRepo
     {
-        Task Insert(BehaviouralAssessment assessment);
-        Task GetAll(IEnumerable<BehaviouralAssessment> assessments);
-        Task UpdateLatest();
+        bool Insert(BehaviouralAssessment assessment);
+        Task<IEnumerable<BehaviouralAssessment>> GetAll();
+        Task UpdateLatest(string verdict, double confidence);
     }
 }

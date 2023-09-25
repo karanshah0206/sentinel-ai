@@ -2,8 +2,9 @@
 {
     public class BehaviouralAssessment
     {
-        public Guid Identifer { get; set; }
-        public Verdict? Verdict { get; set; }
+        public int ID { get; }
+        public DateTime Timestamp { get; set; }
+        public string? Verdict { get; set; }
         public double? Confidence { get; set; }
         public byte[] Image { get; set; }
     }

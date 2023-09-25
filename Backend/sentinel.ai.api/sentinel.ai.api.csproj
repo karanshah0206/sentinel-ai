@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\sentinel.ai.domain\sentinel.ai.domain.csproj" />
+    <ProjectReference Include="..\sentinel.ai.infrastructure\sentinel.ai.infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

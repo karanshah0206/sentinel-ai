@@ -1,5 +1,12 @@
 using sentinel.ai.infrastructure.Hubs;
 
+// Setup Environment Variables
+foreach (var line in File.ReadAllLines(Path.Combine(Directory.GetCurrentDirectory(), ".env")))
+{
+    var parts = line.Split("=", StringSplitOptions.RemoveEmptyEntries);
+    if (parts.Length == 2) Environment.SetEnvironmentVariable(parts[0], parts[1]);
+}
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
