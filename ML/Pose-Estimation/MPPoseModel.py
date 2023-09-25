@@ -1,8 +1,12 @@
 import cv2
+import requests
+import base64
 import mediapipe as mp
 import numpy as np
 from mediapipe.python.solutions.pose import PoseLandmark
 from mediapipe.python.solutions.drawing_utils import DrawingSpec
+
+pose_estimation_state = False # True when target detected
 
 mp_draw  = mp.solutions.drawing_utils
 mp_drawing_styles = mp.solutions.drawing_styles
@@ -47,7 +51,17 @@ for landmark in excluded_pose_landmarks:
     custom_connections = [connection_tuple for connection_tuple in custom_connections 
                             if landmark not in connection_tuple]
 
+def switch_state(image):
+    global pose_estimation_state
+    pose_estimation_state = not pose_estimation_state
+    if pose_estimation_state:
+        _, img_encoded = cv2.imencode('.jpg', image)
+        data = { "Image": str(base64.b64encode(img_encoded))[2:-1] }
+        result = requests.post("http://localhost:5083/History", verify=False, json=data)
+        print(result)
+
 cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
+
 with mp_hol.Holistic(min_detection_confidence=0.5, min_tracking_confidence=0.5) as holistic:
     with mp_face_mesh.FaceMesh(max_num_faces=1, 
                                refine_landmarks=True, 
@@ -62,6 +76,12 @@ with mp_hol.Holistic(min_detection_confidence=0.5, min_tracking_confidence=0.5) 
             face_results = face_mesh.process(image)
 
             image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
+
+            # Pose Estimation State Transitions
+            if (face_results.multi_face_landmarks or results.pose_landmarks) and not pose_estimation_state:
+                switch_state(image)
+            elif not (face_results.multi_face_landmarks or results.pose_landmarks) and pose_estimation_state:
+                switch_state(image)
 
             # Drawing Face, Nose and Mouth Connections
             if face_results.multi_face_landmarks:
