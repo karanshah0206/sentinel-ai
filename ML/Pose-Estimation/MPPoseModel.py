@@ -15,12 +15,13 @@ RIGHT_IRIS = [469, 470, 471, 472]
 FACE_OVAL = [10, 338, 297, 332, 284, 251, 389, 356, 454, 323, 361, 288, 397, 365, 379, 378, 400, 377, 152, 148, 176, 
              149, 150, 136, 172, 58, 132, 93, 234, 127, 162, 21, 54, 103, 67, 109]
 
-'''
-NOSE_MOUTH = [4, 5, 45, 275, 267, 269, 270, 409, 291, 375, 321, 405, 314, 17, 84, 181, 91, 146, 61, 185, 40, 39, 37, 
-              0, 267]
 
-NOSE_MOUTH_CONNECTIONS = [(NOSE_MOUTH[i], NOSE_MOUTH[i + 1]) for i in range(len(NOSE_MOUTH) - 1)]
-'''
+# Define Nose and Mouth connections
+NOSE = [0, 4, 6]
+NOSE_CONNECTIONS = [(NOSE[i], NOSE[i + 1]) for i in range(len(NOSE) - 1)]
+
+MOUTH_OUTER = [61, 185, 40, 39, 37, 0, 267, 269, 270, 409, 291, 375, 321, 405, 314, 17, 84, 181, 91, 146, 61]
+MOUTH_OUTER_CONNECTIONS = [(MOUTH_OUTER[i], MOUTH_OUTER[i + 1]) for i in range(len(MOUTH_OUTER) - 1)]
 
 # Define connections based on the order of landmarks in FACE_OVAL
 FACE_OVAL_CONNECTIONS = [(FACE_OVAL[i], FACE_OVAL[i + 1]) for i in range(len(FACE_OVAL) - 1)]
@@ -62,25 +63,27 @@ with mp_hol.Holistic(min_detection_confidence=0.5, min_tracking_confidence=0.5) 
 
             image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
 
+            # Drawing Face, Nose and Mouth Connections
             if face_results.multi_face_landmarks:
                 for face_landmarks in face_results.multi_face_landmarks:
                     for landmark_num in FACE_OVAL:
                         landmark = face_landmarks.landmark[landmark_num]
-                        cv2.circle(image, (int(landmark.x * img_w), int(landmark.y * img_h)), 2, (0, 255, 0), -1)
+                        cv2.circle(image, (int(landmark.x * img_w), int(landmark.y * img_h)), 4, (0, 0, 255), -1)
                     for connection in FACE_OVAL_CONNECTIONS:
                         start = face_landmarks.landmark[connection[0]]
                         end = face_landmarks.landmark[connection[1]]
                         cv2.line(image, (int(start.x * img_w), int(start.y * img_h)), (int(end.x * img_w), int(end.y * img_h)), (0, 255, 0), 2)
-                    '''
-                    for landmark_num in NOSE_MOUTH:
-                        landmark = face_landmarks.landmark[landmark_num]
-                        cv2.circle(image, (int(landmark.x * img_w), int(landmark.y * img_h)), 2, (0, 255, 0), -1)
-                    for connection in NOSE_MOUTH_CONNECTIONS:
+                    
+                    for connection in NOSE_CONNECTIONS:
                         start = face_landmarks.landmark[connection[0]]
                         end = face_landmarks.landmark[connection[1]]
                         cv2.line(image, (int(start.x * img_w), int(start.y * img_h)), (int(end.x * img_w), int(end.y * img_h)), (0, 255, 0), 2)
-                    '''
-            
+                    
+                    for connection in MOUTH_OUTER_CONNECTIONS:
+                        start = face_landmarks.landmark[connection[0]]
+                        end = face_landmarks.landmark[connection[1]]
+                        cv2.line(image, (int(start.x * img_w), int(start.y * img_h)), (int(end.x * img_w), int(end.y * img_h)), (0, 255, 0), 2)
+                        
             # Draw hand pose landmarks
             mp_draw.draw_landmarks(image, results.right_hand_landmarks, mp_hol.HAND_CONNECTIONS, connection_drawing_spec=hand_connections_style)
             mp_draw.draw_landmarks(image, results.left_hand_landmarks, mp_hol.HAND_CONNECTIONS, connection_drawing_spec=hand_connections_style)
@@ -90,7 +93,7 @@ with mp_hol.Holistic(min_detection_confidence=0.5, min_tracking_confidence=0.5) 
                 for idx, landmark in enumerate(results.pose_landmarks.landmark):
                     if landmark.visibility > 0.5:  # Only draw visible landmarks
                         if PoseLandmark(idx) not in excluded_pose_landmarks:
-                            cv2.circle(image, (int(landmark.x * img_w), int(landmark.y * img_h)), 5, (0, 255, 0), -1)
+                            cv2.circle(image, (int(landmark.x * img_w), int(landmark.y * img_h)), 5, (0, 0, 255), -1)
                 for connection in custom_connections:
                     start = results.pose_landmarks.landmark[connection[0]]
                     end = results.pose_landmarks.landmark[connection[1]]
