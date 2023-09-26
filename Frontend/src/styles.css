@@ -1,5 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
 
+body {
+    position: relative;
+    min-height: calc(100vh - 128px);
+    background-color: #072243;
+}
+
 @import "/node_modules/@swimlane/ngx-datatable/index.css";
 @import '/node_modules/@swimlane/ngx-datatable/themes/material.css';
 @import '/node_modules/@swimlane/ngx-datatable/themes/dark.css';
