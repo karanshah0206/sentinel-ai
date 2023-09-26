@@ -9,7 +9,7 @@
         [columnMode]="'force'" 
         [headerHeight]="50" 
         [footerHeight]="50"
-        [rowHeight]="50" 
+        [rowHeight]= "imgHeight"
         [scrollbarV]="false"
         [limit]="10" >
 
@@ -21,7 +21,7 @@
 
         <ngx-datatable-column name="Image">
             <ng-template let-row="row" ngx-datatable-cell-template>
-                <img [src]="row.image" width="100" />
+                <img [src]="base64ToImage(row.image)" width="100" />
             </ng-template>
         </ngx-datatable-column>
 
