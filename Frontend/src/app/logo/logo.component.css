@@ -1,5 +1,10 @@
 #logo {
-    margin-left: 1%;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 3em;
+    text-align: center;
+    color: whitesmoke;
+    margin: 0;
+    background-color: #072243;
 }
 
 #link {
