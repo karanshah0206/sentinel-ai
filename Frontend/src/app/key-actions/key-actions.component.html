@@ -1,4 +1,6 @@
 <div class="keyActions">
     <div class="heading">Key Actions</div>
-    <p>INSERT KEY ACTIONS</p>
+    <p *ngFor="let action of keyActions">
+        {{action}}
+    </p>
 </div>

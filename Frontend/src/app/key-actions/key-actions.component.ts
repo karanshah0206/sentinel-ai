@@ -6,5 +6,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./key-actions.component.css']
 })
 export class KeyActionsComponent {
+  keyActions = [ "key action", "key action", "key action", "key action", "key action",
+   "key action", "key action", "key action", "key action", "key action", "key action", 
+   "key action", "key action", "key action", "key action", "key action", "key action"];
 
 }

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-key-frames',
@@ -6,5 +7,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./key-frames.component.css']
 })
 export class KeyFramesComponent {
+
+  keyFrames = [ "key frame", "key frame", "key frame", "key frame", "key frame",
+   "key frame", "key frame", "key frame", "key frame", "key frame", "key frame", 
+   "key frame", "key frame", "key frame", "key frame", "key frame", "key frame"];
 
 }
