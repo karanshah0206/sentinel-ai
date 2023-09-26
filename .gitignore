@@ -1,0 +1,7 @@
+# Workspace config
+.vs
+.vscode
+
+# Packages
+*/node_modules
+*/.angular
