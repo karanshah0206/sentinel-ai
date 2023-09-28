@@ -1,6 +1,9 @@
 <div class="keyFrames">
     <div class="heading">Key Frames</div>
-    <p *ngFor="let action of keyFrames">
-        {{action}}
-    </p>
+    <p *ngIf="loadingResult">Fetching data from server...</p>
+    <div *ngIf="!loadingResult">
+        <p *ngFor="let frame of keyFrames">
+            {{frame}}
+        </p>
+    </div>
 </div>
