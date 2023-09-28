@@ -3,7 +3,7 @@
     <p *ngIf="loadingResult">Fetching data from server...</p>
     <div *ngIf="!loadingResult">
         <p *ngFor="let frame of keyFrames">
-            {{frame}}
+            <img [src]="base64ToImage(frame)" width="imgWidth" />
         </p>
     </div>
 </div>
