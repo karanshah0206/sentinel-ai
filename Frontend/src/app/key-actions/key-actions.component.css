@@ -1,0 +1,17 @@
+.keyActions {
+    border: 2px solid black;
+    background-color: whitesmoke;
+    text-align: center;
+    display: inline-block;
+    margin: 2%;
+    padding: 1%;
+    position: relative;
+}
+
+.heading {
+    position: absolute;
+    text-align: center;
+    top: -30%;
+    left: -1%;
+    width: 97.5%;
+}
