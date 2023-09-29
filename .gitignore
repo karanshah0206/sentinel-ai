@@ -5,3 +5,6 @@
 # Packages
 */node_modules
 */.angular
+
+# Misc
+*__pycache__
