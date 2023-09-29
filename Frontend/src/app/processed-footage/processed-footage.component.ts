@@ -1,8 +1,7 @@
-import { Component } from '@angular/core';
-import { SignalrService } from '../signalr.service';
-import { HttpClient } from '@angular/common/http';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';import { SignalrService } from '../signalr.service';
+import { webSocket } from "rxjs/webSocket";
 
-const URL = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4";
+type streamType = {msg1: string, msg2: string}
 
 @Component({
   selector: 'app-processed-footage',
@@ -10,17 +9,15 @@ const URL = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Bi
   styleUrls: ['./processed-footage.component.css']
 })
 export class ProcessedFootageComponent {
-  constructor(public signalRService:  SignalrService, private http: HttpClient) {}
+  @ViewChild('videoPlayer') videoPlayer: ElementRef;
 
+  constructor() {}
+  
   ngOnInit() {
-    this.signalRService.startConnection();
-    this.startHttpRequest();
-  }
-
-  private startHttpRequest = () => {
-    this.http.get(URL)
-    .subscribe(res => {
-      console.log(res);
+    let subject = webSocket<streamType>({url: "ws://localhost:9999"});
+    subject.subscribe((stream: streamType) => {
+      const videoPlayer = this.videoPlayer.nativeElement;
+      videoPlayer.src = "data:image/png;base64," + stream["msg2"];
     })
   }
 }

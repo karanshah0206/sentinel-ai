@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { webSocket } from "rxjs/webSocket";
 
+type streamType = {msg1: string, msg2: string}
 
 @Component({
   selector: 'app-raw-footage',
@@ -12,16 +13,11 @@ export class RawFootageComponent implements OnInit {
 
   constructor() {}
   
-  subject = webSocket("192.168.1.109:9999");
-
   ngOnInit() {
-    this.subject.subscribe((stream) => {
-      console.log(stream);
-
+    let subject = webSocket<streamType>({url: "ws://localhost:9999"});
+    subject.subscribe((stream: streamType) => {
       const videoPlayer = this.videoPlayer.nativeElement;
-      videoPlayer.src = stream;
-
-      videoPlayer.play();
+      videoPlayer.src = "data:image/png;base64," + stream["msg1"];
     })
   }
 }

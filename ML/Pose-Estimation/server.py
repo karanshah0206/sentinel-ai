@@ -1,56 +1,35 @@
-import socket, pickle, struct, imutils
-
-# Automatic retrieval of host IP Address:
-# host_name  = socket.gethostname()
-# host_ip = socket.gethostbyname(host_name)
+import asyncio, cv2, base64, json
+from websockets.server import serve
+from MPPoseModel import draw
 
 # Hardcoded IP address
-host_ip = "192.168.1.109"
+host_ip = "localhost"
 
 # Ports
 raw_video_port = 9999
 processed_video_port = 9998
 
+def run_async(coroutine):
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+    loop.run_until_complete(coroutine())
 
-def setup_server():
-    raw_video_server_socket = setup_socket(raw_video_port)
-    processed_video_server_socket = setup_socket(processed_video_port)
+async def echo(websocket):
+    cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
 
-    # Socket Accept
-    raw_video_client_socket, addr = raw_video_server_socket.accept()
-    print("RECEIVED CONNECTION FROM:", addr)
-    processed_video_client_socket, addr = processed_video_server_socket.accept()
-    print("RECEIVED CONNECTION FROM:", addr)
+    while cap.isOpened:
+        img, raw_frame = cap.read()
 
-    return (raw_video_client_socket, processed_video_client_socket)
+        processed_frame = draw(raw_frame)
 
+        img, raw_buffer = cv2.imencode('.jpg', raw_frame)
+        img, processed_buffer = cv2.imencode('.jpg', processed_frame)
 
-def setup_socket(port):
-    # Socket Create
-    server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        base64_message_raw = base64.b64encode(raw_buffer).decode('utf-8')
+        base64_message_processed = base64.b64encode(processed_buffer).decode('utf-8')
 
-    print("HOST IP:", host_ip)
-    socket_address = (host_ip, port)
+        await websocket.send(json.dumps({"msg1": base64_message_raw, "msg2": base64_message_processed}))
 
-    # Socket Bind
-    server_socket.bind(socket_address)
-
-    # Socket Listen
-    server_socket.listen(5)
-    print("LISTENING AT:", socket_address)
-
-    return server_socket
-
-
-def send_message(img, client_socket):
-    if client_socket:
-        img - imutils.resize(img, width=640)
-
-        # Serializes a python object into a bytes object
-        a = pickle.dumps(img)
-
-        # Returns a buffer of bytes containing value of 2nd arg
-        message = struct.pack("Q", len(a)) + a
-
-        # Sends buffer until an exception/error is encountered
-        client_socket.sendall(message)
+async def main():
+    async with serve(echo, host_ip, raw_video_port):
+        await asyncio.Future()
