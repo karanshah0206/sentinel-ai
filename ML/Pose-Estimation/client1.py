@@ -1,3 +1,5 @@
+# THIS CLASS IS PURELY FOR TESTING
+
 import socket,cv2, pickle,struct
 
 # create socket

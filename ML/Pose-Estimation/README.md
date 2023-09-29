@@ -1,11 +1,8 @@
 # POSE ESTIMATION
+Sentinel A.I pose estimation model
 
-# Packages
+# Installing dependencies
 
-* py -m pip install numpy
-
-* py -m pip install opencv-python
-
-* py -m pip install mediapipe
-
-
+```
+py -m pip install -r requirements.txt
+```
