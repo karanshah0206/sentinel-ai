@@ -3,8 +3,11 @@ import requests
 import base64
 import mediapipe as mp
 import numpy as np
+import pickle
+import struct
 from mediapipe.python.solutions.pose import PoseLandmark
 from mediapipe.python.solutions.drawing_utils import DrawingSpec
+from server import setup_socket_connection, send_message
 
 pose_estimation_state = False # True when target detected
 
