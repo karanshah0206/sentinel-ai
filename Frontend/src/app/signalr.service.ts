@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
 
-const hubUrl = ""
+const HUB_URL = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +11,7 @@ export class SignalrService {
 
   constructor() { 
     this.hubConnection = new HubConnectionBuilder()
-    .withUrl(hubUrl)
+    .withUrl(HUB_URL)
     .build();
   }
 
