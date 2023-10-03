@@ -1,0 +1,14 @@
+<button type="button" id="viewHistory" class="btn btn-dark" (click)="onClick();">View History</button>
+<app-logo></app-logo>
+<div class="container-fluid">
+    <div id="row" class="row">
+        <app-raw-footage class="col-md-4"></app-raw-footage>
+        <app-processed-footage class="col-md-4"></app-processed-footage>
+        <app-key-frames class="col-md-2"></app-key-frames>
+        <app-key-actions class="col-md-2"></app-key-actions>
+    </div>
+    <div class="row">
+        <app-verdict class="col-md-2 offset-md-9 mt-3"></app-verdict>
+    </div>
+</div>
+<router-outlet></router-outlet>

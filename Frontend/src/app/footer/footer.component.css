@@ -1,0 +1,10 @@
+#footer {
+    position: absolute;
+    bottom: -128px;
+    width: 100%;
+    background-color: #0a4275;
+}
+
+#copyright {
+    background-color: rgba(0, 0, 0, 0.2);
+}

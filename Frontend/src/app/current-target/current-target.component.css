@@ -1,0 +1,18 @@
+#viewHistory {
+    float: right;
+    margin-right: 1%;
+    margin-top: 1%;
+    background-color: #0a4275;
+}
+
+#row {
+    margin-top: 2%;
+}
+
+.heading {
+    position: absolute;
+    text-align: center;
+    top: -2%;
+    left: -1%;
+    width: 97.5%;
+}

@@ -1,4 +1,9 @@
 <div class="keyActions">
     <div class="heading">Key Actions</div>
-    <p>INSERT KEY ACTIONS</p>
+    <p *ngIf="loadingResult">Fetching data from server...</p>
+    <div *ngIf="!loadingResult">
+        <p *ngFor="let action of keyActions">
+            {{action}}
+        </p>
+    </div>
 </div>

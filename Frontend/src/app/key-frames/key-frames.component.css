@@ -1,17 +1,9 @@
 .keyFrames {
-    border: 2px solid black;
-    background-color: whitesmoke;
+    border: 8px solid #0a4275;
+    background-color: #dedede;
     text-align: center;
-    display: inline-block;
+    height: 30em;
     margin: 2%;
     padding: 1%;
-    position: relative;
-}
-
-.heading {
-    position: absolute;
-    text-align: center;
-    top: -30%;
-    left: -1%;
-    width: 97.5%;
+    overflow: auto;
 }

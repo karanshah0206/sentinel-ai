@@ -1,11 +1,10 @@
 .rawFootage {
-    border: 2px solid black;
-    background-color: whitesmoke;
+    border: 8px solid #0a4275;
+    background-color: #dedede;
     text-align: center;
-    display: inline-block;
-    margin: 2%;
+    height: 30em;
+    margin: 1%;
     padding: 1%;
-    position: relative;
 }
 
 .footageHeading {

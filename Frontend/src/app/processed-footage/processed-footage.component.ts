@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';import { SignalrService } from '../signalr.service';
+import { webSocket } from "rxjs/webSocket";
+
+type streamType = {msg1: string, msg2: string}
 
 @Component({
   selector: 'app-processed-footage',
@@ -6,5 +9,15 @@ import { Component } from '@angular/core';
   styleUrls: ['./processed-footage.component.css']
 })
 export class ProcessedFootageComponent {
+  @ViewChild('videoPlayer') videoPlayer: ElementRef;
 
+  constructor() {}
+  
+  ngOnInit() {
+    let subject = webSocket<streamType>({url: "ws://localhost:9999"});
+    subject.subscribe((stream: streamType) => {
+      const videoPlayer = this.videoPlayer.nativeElement;
+      videoPlayer.src = "data:image/png;base64," + stream["msg2"];
+    })
+  }
 }
