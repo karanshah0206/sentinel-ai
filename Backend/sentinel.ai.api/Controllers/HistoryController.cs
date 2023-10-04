@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using sentinel.ai.domain.Dto;
-using sentinel.ai.domain.interfaces;
-using sentinel.ai.infrastructure.services;
+using sentinel.ai.domain.Repositories;
+using sentinel.ai.infrastructure.Repositories;
 
 namespace sentinel.ai.api.Controllers;
 
@@ -9,14 +9,14 @@ namespace sentinel.ai.api.Controllers;
 [Route("[controller]")]
 public class HistoryController : ControllerBase
 {
-    private IHistoryRepo _historyRepo;
+    private IHistoryRepository _historyRepo;
 
     public HistoryController()
     {
         _historyRepo = new HistoricalDb();
     }
 
-    [HttpGet]
+    [HttpGet("all")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> GetHistory()
@@ -27,7 +27,7 @@ public class HistoryController : ControllerBase
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public IActionResult SetHistory(Base64Image base64Image)
+    public async Task<IActionResult> Create(Base64Image base64Image)
     {
         try
         {
@@ -36,7 +36,7 @@ public class HistoryController : ControllerBase
                 Timestamp = DateTime.Now,
                 Image = Convert.FromBase64String(base64Image.Image)
             };
-            if (_historyRepo.Insert(assessment))
+            if (_historyRepo.InsertHistory(assessment))
             {
                 return Ok("");
             }
