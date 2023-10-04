@@ -1,3 +1,4 @@
+using System.Configuration;
 using Dapper;
 using Microsoft.Extensions.Configuration;
 using MySql.Data.MySqlClient;
@@ -26,10 +27,8 @@ public class HistoricalDb : IHistoryRepository
             .GetRequiredSection("DatabaseConnection").Get<DBConfig>()
             ?? throw new InvalidOperationException("Invalid database connection configuration.");
 
-        // string password = Environment.GetEnvironmentVariable("DATABASE__PASSWORD")
-        //     ?? throw new ConfigurationErrorsException("Database password not set in environment.");
-
-        string password = "";
+        string password = Environment.GetEnvironmentVariable("DATABASE__PASSWORD")
+            ?? throw new ConfigurationErrorsException("Database password not set in environment.");
 
         _dbConnection = new MySqlConnection(
             $"Server={_dbConfig.Host};" +
