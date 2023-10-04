@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using sentinel.ai.domain.Dto;
 using sentinel.ai.infrastructure.Hubs;
 
@@ -8,18 +9,20 @@ namespace sentinel.ai.api.Controllers;
 [Route("[controller]")]
 public class KeyActionsController : ControllerBase
 {
-    private readonly KeyActionHub _keyActionHub;
-    public KeyActionsController()
+    private readonly IHubContext<KeyActionHub> _hubContext;
+
+    public KeyActionsController(IHubContext<KeyActionHub> context)
     {
+        _hubContext = context;
     }
 
     //summary
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> KeyActions(KeyAction request)
+    public async Task<IActionResult> KeyActions(KeyAction action)
     {
-        // await _keyActionHub.SendKeyAction(request);
+        await _hubContext.Clients.All.SendAsync("ReceiveKeyAction", action);
 
         return Ok();
     }

@@ -11,10 +11,8 @@ public class VerdictController : ControllerBase
 {
     private readonly IHubContext<VerdictHub> _hubContext;
 
-    private readonly VerdictHub _verdictHub;
     public VerdictController(IHubContext<VerdictHub> context)
     {
-        // _verdictHub = new VerdictHub();
         _hubContext = context;
     }
 
@@ -24,8 +22,6 @@ public class VerdictController : ControllerBase
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> KeyActions(VerdictDto verdict)
     {
-        // await _verdictHub.SendVerdict(verdict);
-
         await _hubContext.Clients.All.SendAsync("ReceiveVerdict", verdict);
 
         return Ok();
