@@ -73,7 +73,15 @@ export class HistoricalDataComponent {
     // Apply filtering based on the selected dropdown option
     switch (this.selectedOption) {
       case "All":
-        this.tempRows = this.rows;
+        this.tempRows = this.rows.filter(row =>
+          row.id.includes(this.searchText) ||
+          row.timestamp.toLocaleDateString().toLowerCase().includes(this.searchText) ||
+          row.timestamp.toLocaleTimeString().toLowerCase().includes(this.searchText) ||
+          days[row.timestamp.getDay()].includes(this.searchText) ||
+          months[row.timestamp.getMonth()].includes(this.searchText) ||
+          row.confidence.includes(this.searchText) ||
+          row.verdict.toLowerCase().includes(this.searchText)
+        );
         break;
       case "ID":
         this.tempRows = this.rows.filter(row => row.id.includes(this.searchText));
