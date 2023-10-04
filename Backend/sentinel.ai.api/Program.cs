@@ -1,6 +1,5 @@
 using sentinel.ai.infrastructure.Hubs;
 
-// Setup Environment Variables
 foreach (var line in File.ReadAllLines(Path.Combine(Directory.GetCurrentDirectory(), ".env")))
 {
     var parts = line.Split("=", StringSplitOptions.RemoveEmptyEntries);
@@ -10,7 +9,15 @@ foreach (var line in File.ReadAllLines(Path.Combine(Directory.GetCurrentDirector
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddCors();
+builder.Services.AddCors(options => options.AddPolicy("CorsPolicy",
+builder =>
+{
+    builder.AllowAnyHeader()
+            .AllowAnyMethod()
+            .SetIsOriginAllowed((host) => true)
+            .AllowCredentials();
+}));
+
 builder.Services.AddSignalR();
 builder.Services.AddControllers();
 
@@ -27,15 +34,22 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseWebSockets();
+
 app.UseHttpsRedirection();
 
 app.UseRouting();
 
 app.UseAuthorization();
 
-app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+app.UseCors("CorsPolicy");
 
 app.MapControllers();
-app.MapHub<VideoFeedHub>("/videoFeed");
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapHub<KeyActionHub>("/keyActionsHub");
+    endpoints.MapHub<VerdictHub>("/verdictHub");
+});
 
 app.Run();

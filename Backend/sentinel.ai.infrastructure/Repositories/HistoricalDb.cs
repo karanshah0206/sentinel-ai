@@ -1,15 +1,13 @@
 using System.Configuration;
-using System.Data;
-using System.Data.Common;
 using Dapper;
 using Microsoft.Extensions.Configuration;
 using MySql.Data.MySqlClient;
 using sentinel.ai.domain.Dto;
-using sentinel.ai.domain.interfaces;
+using sentinel.ai.domain.Repositories;
 
-namespace sentinel.ai.infrastructure.services;
+namespace sentinel.ai.infrastructure.Repositories;
 
-public class HistoricalDb : IHistoryRepo
+public class HistoricalDb : IHistoryRepository
 {
     private class DBConfig
     {
@@ -46,7 +44,7 @@ public class HistoricalDb : IHistoryRepo
         return _dbConnection.QueryAsync<BehaviouralAssessment>($"SELECT * FROM {_dbConfig.HistoryTable};");
     }
 
-    public bool Insert(BehaviouralAssessment assessment)
+    public bool InsertHistory(BehaviouralAssessment assessment)
     {
         var command = new MySqlCommand($"INSERT INTO {_dbConfig.HistoryTable} (Timestamp, Image) VALUES (@timestamp, @imageBlob);", _dbConnection);
         command.Parameters.Add("@timestamp", MySqlDbType.DateTime).Value = assessment.Timestamp;
@@ -57,7 +55,7 @@ public class HistoricalDb : IHistoryRepo
         return result == 1;
     }
 
-    public Task UpdateLatest(string verdict, double confidence)
+    public void UpdateLatestHistory(string verdict, double confidence)
     {
         throw new NotImplementedException();
     }
