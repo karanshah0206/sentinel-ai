@@ -35,7 +35,8 @@ export class HistoricalDataComponent {
   tempRows: { id: string; image: string; timestamp: Date; verdict: string; confidence: string; }[] = [];
   searchText = "";
   loadingResult = true;
-
+  // Add a variable to store the selected dropdown option
+  selectedOption = "All"; // Default selected option
   constructor(private router: Router, 
     private sanitiser: DomSanitizer) {}
 
@@ -65,28 +66,42 @@ export class HistoricalDataComponent {
   base64ToImage(base64: string) {
     return this.sanitiser.bypassSecurityTrustResourceUrl('data:image/png;base64,' + base64);
   }
-
+  
   filter() {
-    this.searchText = this.searchText.trim(); // removing leading and trailing whitespaces
-    this.searchText = this.searchText.toLowerCase(); // make searched text lowercase
-    // if no search text display all data
-    if (this.searchText == "")
-      this.tempRows = this.rows;
-    else {
-      this.tempRows = []; // empty temp rows array
-      
-      // filter data
-      this.rows.forEach(row => {
-        if (row.id.includes(this.searchText)
-          || row.timestamp.toLocaleDateString().toLowerCase().includes(this.searchText)
-          || row.timestamp.toLocaleTimeString().toLowerCase().includes(this.searchText)
-          || days[row.timestamp.getDay()].includes(this.searchText)
-          || months[row.timestamp.getMonth()].includes(this.searchText)
-          || row.confidence.includes(this.searchText)
-          || row.verdict.toLowerCase().includes(this.searchText)
-        )
-          this.tempRows.push(row); // push matched data into tempRows
-      });
+    this.searchText = this.searchText.trim().toLowerCase(); // Normalize searchText
+
+    // Apply filtering based on the selected dropdown option
+    switch (this.selectedOption) {
+      case "All":
+        this.tempRows = this.rows.filter(row =>
+          row.id.includes(this.searchText) ||
+          row.timestamp.toLocaleDateString().toLowerCase().includes(this.searchText) ||
+          row.timestamp.toLocaleTimeString().toLowerCase().includes(this.searchText) ||
+          days[row.timestamp.getDay()].includes(this.searchText) ||
+          months[row.timestamp.getMonth()].includes(this.searchText) ||
+          row.confidence.includes(this.searchText) ||
+          row.verdict.toLowerCase().includes(this.searchText)
+        );
+        break;
+      case "ID":
+        this.tempRows = this.rows.filter(row => row.id.includes(this.searchText));
+        break;
+      case "Timestamp":
+        this.tempRows = this.rows.filter(row =>
+          row.timestamp.toLocaleDateString().toLowerCase().includes(this.searchText) ||
+          row.timestamp.toLocaleTimeString().toLowerCase().includes(this.searchText) ||
+          days[row.timestamp.getDay()].includes(this.searchText) ||
+          months[row.timestamp.getMonth()].includes(this.searchText)
+        );
+        break;
+      case "Verdict":
+        this.tempRows = this.rows.filter(row => row.verdict.toLowerCase().includes(this.searchText));
+        break;
+      case "Confidence":
+        this.tempRows = this.rows.filter(row => row.confidence.includes(this.searchText));
+        break;
+      default:
+        this.tempRows = this.rows;
     }
   }
 }

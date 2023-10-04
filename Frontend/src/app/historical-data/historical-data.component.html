@@ -2,6 +2,18 @@
 <app-logo></app-logo>
 <p *ngIf="loadingResult">Fetching data from server...</p>
 <div class="history-table" *ngIf="!loadingResult">
+    <!-- Add a dropdown menu to select the filtering option -->
+    <div class="dropdown">
+        <label for="dropdown">Select Option: </label>
+        <select id="dropdown" [(ngModel)]="selectedOption" (change)="filter()">
+        <option value="All">All</option>
+        <option value="ID">ID</option>
+        <option value="Timestamp">Timestamp</option>
+        <option value="Verdict">Verdict</option>
+        <option value="Confidence">Confidence</option>
+        </select>
+    </div>
+    
     <input class="form-control" id="search" type="text" placeholder="Search" [(ngModel)]="searchText" (input)="filter()">
     <ngx-datatable 
         class="material" 
