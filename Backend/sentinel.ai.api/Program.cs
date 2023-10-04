@@ -52,7 +52,4 @@ app.UseEndpoints(endpoints =>
     endpoints.MapHub<VerdictHub>("/verdictHub");
 });
 
-// app.MapHub<KeyActionHub>("/keyActionsHub");
-// app.MapHub<VerdictHub>("/verdictHub");
-
 app.Run();
