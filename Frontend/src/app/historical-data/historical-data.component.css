@@ -4,4 +4,28 @@
     margin-top: 1%;
     background-color: #0a4275;
 }
-  
+
+.dropdown {
+  width: 100%;
+}
+
+#dropdown {
+  width: 100%;
+  text-align: center;
+  padding-top: 7px;
+  padding-bottom: 6px;
+  border: solid #dee2e6 1px;
+  border-radius: 1vh;
+}
+
+.no-pad {
+  padding: 0;
+}
+
+.pad-l-12 {
+  padding-left: 12px;
+}
+ 
+.pad-r-12 {
+  padding-right: 12px;
+}
