@@ -60,7 +60,7 @@ export class HistoricalDataComponent {
   }
 
   onClick() {
-    this.router.navigate(['../current-target']);
+    this.router.navigate(['../']);
   }
 
   base64ToImage(base64: string) {

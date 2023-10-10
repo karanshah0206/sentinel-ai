@@ -8,7 +8,7 @@ import { HistoricalDataComponent } from './historical-data/historical-data.compo
 import { CurrentTargetComponent } from './current-target/current-target.component';
 
 const routes : Routes = [
-  {path: 'current-target', component: CurrentTargetComponent},
+  {path: '', component: CurrentTargetComponent},
   {path: 'historical-data', component: HistoricalDataComponent}
 ];
 
