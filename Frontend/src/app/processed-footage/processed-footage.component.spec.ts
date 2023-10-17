@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ProcessedFootageComponent } from './processed-footage.component';
 
-describe('ProcessedFootageComponent', () => {
+fdescribe('ProcessedFootageComponent', () => {
   let component: ProcessedFootageComponent;
   let fixture: ComponentFixture<ProcessedFootageComponent>;
 
@@ -15,7 +15,11 @@ describe('ProcessedFootageComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('should recieve video feed from url', () => {
+    spyOn(component, 'getVideoFeed');
+
+    component.ngOnInit()
+
+    expect(component.getVideoFeed).toHaveBeenCalled();
   });
 });

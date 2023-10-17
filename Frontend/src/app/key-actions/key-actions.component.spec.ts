@@ -1,8 +1,8 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { KeyActionsComponent } from './key-actions.component';
 
-describe('KeyActionsComponent', () => {
+fdescribe('KeyActionsComponent', () => {
   let component: KeyActionsComponent;
   let fixture: ComponentFixture<KeyActionsComponent>;
 
@@ -15,7 +15,11 @@ describe('KeyActionsComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+  it('should fetch data from api', () => {
+    spyOn(component, 'fetchData');
+
+    component.ngOnInit();
+
+    expect(component.fetchData).toHaveBeenCalled();
+  })
 });

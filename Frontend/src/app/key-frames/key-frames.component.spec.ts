@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { KeyFramesComponent } from './key-frames.component';
 
-describe('KeyFramesComponent', () => {
+fdescribe('KeyFramesComponent', () => {
   let component: KeyFramesComponent;
   let fixture: ComponentFixture<KeyFramesComponent>;
 
@@ -15,7 +15,11 @@ describe('KeyFramesComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+  it('should fetch data from api', () => {
+    spyOn(component, 'fetchData');
+
+    component.ngOnInit();
+
+    expect(component.fetchData).toHaveBeenCalled();
+  })
 });

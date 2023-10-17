@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 
-const URL = "https://localhost:7251/KeyActions";
+const URL = "https://localhost:7251/KeyFrames";
 
 const imgWidth = 100;
 
@@ -24,6 +24,10 @@ export class KeyFramesComponent {
   loadingResult = true;
 
   ngOnInit() {
+    this.fetchData();
+  }
+
+  fetchData() {
     fetch(URL).then((fetchedResult) => {
       fetchedResult.json().then((jsonResult) => {
         this.keyFrames = jsonResult;

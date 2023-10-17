@@ -14,6 +14,10 @@ export class ProcessedFootageComponent {
   constructor() {}
   
   ngOnInit() {
+    this.getVideoFeed();
+  }
+
+  getVideoFeed() {
     let subject = webSocket<streamType>({url: "ws://localhost:9999"});
     subject.subscribe((stream: streamType) => {
       const videoPlayer = this.videoPlayer.nativeElement;

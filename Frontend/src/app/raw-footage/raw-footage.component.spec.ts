@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { RawFootageComponent } from './raw-footage.component';
 
-describe('RawFootageComponent', () => {
+fdescribe('RawFootageComponent', () => {
   let component: RawFootageComponent;
   let fixture: ComponentFixture<RawFootageComponent>;
 
@@ -15,7 +15,11 @@ describe('RawFootageComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('should recieve video feed from url', () => {
+    spyOn(component, 'getVideoFeed');
+
+    component.ngOnInit()
+
+    expect(component.getVideoFeed).toHaveBeenCalled();
   });
 });
