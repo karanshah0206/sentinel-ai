@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
+import { webSocket } from "rxjs/webSocket";
 
-const URL = "https://localhost:7251/KeyActions";
+type streamType = {msg1: string, msg2: string, msg3: string[]}
 
 @Component({
   selector: 'app-key-actions',
@@ -8,26 +9,12 @@ const URL = "https://localhost:7251/KeyActions";
   styleUrls: ['./key-actions.component.css']
 })
 export class KeyActionsComponent {
-  keyActions = [ "key action", "key action", "key action", "key action", "key action",
-   "key action", "key action", "key action", "key action", "key action", "key action", 
-   "key action", "key action", "key action", "key action", "key action", "key action"];
-
-  loadingResult = true;
+  keyActions: string[];
 
   ngOnInit() {
-    fetch(URL).then((fetchedResult) => {
-      fetchedResult.json().then((jsonResult) => {
-        this.keyActions = jsonResult;
-        this.loadingResult = false;
-      }).catch(_ => {
-        // alert("Error occured while parsing data.");
-        this.loadingResult = false;
-        console.error("Error occured while parsing data.");
-      });
-    }).catch((e) => {
-      // alert("Could not fetch data from the server.");
-      this.loadingResult = false;
-      console.error("Could not fetch data from the server.");
+    let subject = webSocket<streamType>({url: "ws://localhost:9999"});
+    subject.subscribe((stream: streamType) => {
+        this.keyActions = stream["msg3"];
     });
   }
 }

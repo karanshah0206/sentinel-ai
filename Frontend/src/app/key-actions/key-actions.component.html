@@ -1,7 +1,6 @@
 <div class="keyActions">
     <div class="heading">Key Actions</div>
-    <p *ngIf="loadingResult">Fetching data from server...</p>
-    <div *ngIf="!loadingResult">
+    <div>
         <p *ngFor="let action of keyActions">
             {{action}}
         </p>

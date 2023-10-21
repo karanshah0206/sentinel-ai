@@ -1,9 +1,8 @@
 <div class="keyFrames">
     <div class="heading">Key Frames</div>
-    <p *ngIf="loadingResult">Fetching data from server...</p>
-    <div *ngIf="!loadingResult">
+    <div>
         <p *ngFor="let frame of keyFrames">
-            <img [src]="base64ToImage(frame)" width="imgWidth" />
+            <img [src]="base64ToImage(frame)" width="100" />
         </p>
     </div>
 </div>
