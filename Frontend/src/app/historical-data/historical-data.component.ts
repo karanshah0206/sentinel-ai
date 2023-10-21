@@ -41,10 +41,13 @@ export class HistoricalDataComponent {
     private sanitiser: DomSanitizer) {}
 
   async ngOnInit() {
-    fetch("https://localhost:7251/History").then((fetchedResult) => {
+    fetch("https://localhost:7251/History/all").then((fetchedResult) => {
       fetchedResult.json().then((jsonResult) => {
         this.rows = jsonResult;
-        this.rows.forEach(row => row.timestamp = new Date(row.timestamp));
+        this.rows.forEach(row => {
+          row.timestamp = new Date(row.timestamp)
+          row.id = row.id.toString()
+        });
         this.filter();
         this.loadingResult = false;
       }).catch(_ => {

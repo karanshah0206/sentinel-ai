@@ -69,8 +69,7 @@ def switch_state(image):
     if pose_estimation_state:
         _, img_encoded = cv2.imencode(".jpg", image)
         data = {"Image": str(base64.b64encode(img_encoded))[2:-1]}
-        # result = requests.post("http://localhost:5083/History", verify=False, json=data)
-        # print(result)
+        requests.post("https://localhost:7251/History", verify=False, json=data)
 
 def draw(frame):
     # Detection
