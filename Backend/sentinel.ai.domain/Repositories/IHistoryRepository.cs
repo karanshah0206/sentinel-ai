@@ -6,6 +6,6 @@ namespace sentinel.ai.domain.Repositories
     {
         Task<IEnumerable<BehaviouralAssessment>> GetAll();
         bool InsertHistory(BehaviouralAssessment assessment);
-        void UpdateLatestHistory(string verdict, double confidence);
+        bool UpdateLatestHistory(VerdictDto verdict);
     }
 }

@@ -55,8 +55,12 @@ public class HistoricalDb : IHistoryRepository
         return result == 1;
     }
 
-    public void UpdateLatestHistory(string verdict, double confidence)
+    public bool UpdateLatestHistory(VerdictDto verdict)
     {
-        throw new NotImplementedException();
+        var command = new MySqlCommand($"UPDATE {_dbConfig.HistoryTable} SET Verdict = '{verdict.Verdict}', Confidence = {verdict.Confidence} WHERE Verdict IS NULL;", _dbConnection);
+        _dbConnection.Open();
+        var result = command.ExecuteNonQuery();
+        _dbConnection.Close();
+        return result > 0;
     }
 }

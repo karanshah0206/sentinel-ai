@@ -47,4 +47,23 @@ public class HistoryController : ControllerBase
             return StatusCode(500);
         }
     }
+
+    [HttpPost("verdict")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> UpdateVerdict(VerdictDto verdict)
+    {
+        try
+        {
+            if (_historyRepo.UpdateLatestHistory(verdict))
+            {
+                return Ok("");
+            }
+            return StatusCode(500);
+        }
+        catch
+        {
+            return StatusCode(500);
+        }
+    }
 }
