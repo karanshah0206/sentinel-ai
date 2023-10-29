@@ -6,6 +6,7 @@ import { RouterStateSnapshot } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { HistoricalDataComponent } from './historical-data/historical-data.component';
 import { CurrentTargetComponent } from './current-target/current-target.component';
+import { LogoComponent } from './logo/logo.component';
 
 const routes : Routes = [
   {path: '', component: CurrentTargetComponent},
