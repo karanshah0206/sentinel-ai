@@ -4,47 +4,28 @@
     margin-top: 1%;
     background-color: #0a4275;
 }
-/* Style the dropdown container */
+
 .dropdown {
-    position: relative;
-    display: inline-block;
-  }
-  
-  /* Style the dropdown select element */
-  #dropdown {
-    appearance: none; /* Remove default appearance */
-    border: 2px solid #3498db; /* Border color */
-    padding: 10px;
-    font-size: 16px;
-    border-radius: 5px;
-    background-color: #fff;
-    color: #333;
-    cursor: pointer;
-    width: 200px; /* Set a fixed width or adjust as needed */
-  }
-  
-  /* Style the dropdown arrow */
-  #dropdown::after {
-    content: '\25BC'; /* Unicode character for down arrow */
-    position: absolute;
-    top: 50%;
-    right: 12px;
-    transform: translateY(-50%);
-    font-size: 18px;
-    color: #3498db; /* Arrow color */
-  }
-  
-  /* Style the dropdown options */
-  #dropdown option {
-    font-size: 16px;
-    background-color: #fff;
-    color: #333;
-  }
-  
-  /* Style the dropdown when it's open */
-  #dropdown:focus {
-    outline: none; /* Remove the default focus border */
-    box-shadow: 0 0 5px rgba(52, 152, 219, 0.7); /* Add a shadow when focused */
-    border-color: #3498db; /* Highlight border color */
-  }
-  
+  width: 100%;
+}
+
+#dropdown {
+  width: 100%;
+  text-align: center;
+  padding-top: 7px;
+  padding-bottom: 6px;
+  border: solid #dee2e6 1px;
+  border-radius: 1vh;
+}
+
+.no-pad {
+  padding: 0;
+}
+
+.pad-l-12 {
+  padding-left: 12px;
+}
+ 
+.pad-r-12 {
+  padding-right: 12px;
+}

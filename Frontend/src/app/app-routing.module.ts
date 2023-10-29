@@ -9,7 +9,7 @@ import { CurrentTargetComponent } from './current-target/current-target.componen
 import { LogoComponent } from './logo/logo.component';
 
 const routes : Routes = [
-  {path: 'current-target', component: CurrentTargetComponent},
+  {path: '', component: CurrentTargetComponent},
   {path: 'historical-data', component: HistoricalDataComponent}
 ];
 

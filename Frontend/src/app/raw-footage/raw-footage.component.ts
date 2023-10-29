@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { webSocket } from "rxjs/webSocket";
 
-type streamType = {msg1: string, msg2: string}
+type streamType = {msg1: string, msg2: string, msg3: string[]}
 
 @Component({
   selector: 'app-raw-footage',

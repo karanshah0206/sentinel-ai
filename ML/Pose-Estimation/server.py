@@ -1,13 +1,12 @@
 import asyncio, cv2, base64, json
 from websockets.server import serve
-from MPPoseModel import draw
+from MPPoseModel import draw, getKeyActions
 
 # Hardcoded IP address
 host_ip = "localhost"
 
 # Ports
 raw_video_port = 9999
-processed_video_port = 9998
 
 def run_async(coroutine):
     loop = asyncio.new_event_loop()
@@ -20,7 +19,11 @@ async def echo(websocket):
     while cap.isOpened:
         img, raw_frame = cap.read()
 
-        processed_frame = draw(raw_frame)
+        key_actions = []
+
+        processed_frame, new_key_actions = draw(raw_frame)
+        if (new_key_actions):
+            key_actions = getKeyActions()
 
         img, raw_buffer = cv2.imencode('.jpg', raw_frame)
         img, processed_buffer = cv2.imencode('.jpg', processed_frame)
@@ -28,7 +31,11 @@ async def echo(websocket):
         base64_message_raw = base64.b64encode(raw_buffer).decode('utf-8')
         base64_message_processed = base64.b64encode(processed_buffer).decode('utf-8')
 
-        await websocket.send(json.dumps({"msg1": base64_message_raw, "msg2": base64_message_processed}))
+        await websocket.send(json.dumps({
+            "msg1": base64_message_raw,
+            "msg2": base64_message_processed,
+            "msg3": key_actions
+        }))
 
 async def main():
     async with serve(echo, host_ip, raw_video_port):

@@ -1,3 +1,5 @@
-numpy==1.26.0
-opencv-python==4.8.0.76
-mediapipe==0.10.5
+numpy==1.26.1
+opencv-python==4.8.1.78
+mediapipe==0.10.7
+websockets==12.0
+requests==2.31.0
